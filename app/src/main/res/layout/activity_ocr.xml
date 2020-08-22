@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".OcrActivity">
+
+    <EditText
+        android:id="@+id/text_display"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:maxLines="20"
+        android:layout_margin="10dp"
+        android:hint="Capture the image"
+        android:text=""
+        android:textIsSelectable="true"
+        >
+
+    </EditText>
+
+    <Button
+        android:id="@+id/capture_image_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/detect_text_image_btn"
+        android:layout_marginLeft="19dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="19dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/buttons"
+        android:padding="4dp"
+        android:text="Capture"
+        android:textAllCaps="false"
+        android:textColor="@android:color/background_light"
+        android:textSize="24dp">
+
+    </Button>
+
+    <Button
+        android:id="@+id/detect_text_image_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="19dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="19dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/buttons"
+        android:padding="4dp"
+        android:text="Scan Text"
+        android:textAllCaps="false"
+        android:textColor="@android:color/background_light"
+        android:textSize="24dp"
+        android:visibility="invisible">
+
+    </Button>
+
+    <Button
+        android:id="@+id/copy_ocr_text_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_display"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/buttons"
+        android:text="Copy"
+        android:textSize="18dp"
+        android:textAllCaps="false"
+        android:textColor="@android:color/background_light"
+        android:layout_marginRight="25dp"
+        android:visibility="invisible"></Button>
+
+    <Button
+        android:id="@+id/text_to_speech_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_display"
+        android:background="@drawable/buttons"
+        android:layout_toStartOf="@id/copy_ocr_text_btn"
+        android:text="Listen"
+        android:textSize="18dp"
+        android:textAllCaps="false"
+        android:textColor="@android:color/background_light"
+        android:layout_marginRight="25dp"
+        android:visibility="invisible"
+        >
+
+    </Button>
+
+</RelativeLayout>

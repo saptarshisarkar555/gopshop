@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".ChatActivity">
+
+    <include
+        android:id="@+id/chat_toolbar"
+        layout="@layout/app_bar_layout">
+    </include>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/private_message_list_of_users"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/chat_toolbar"
+        android:layout_above="@+id/chat_linear_layout"
+        >
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <RelativeLayout
+        android:id="@+id/chat_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:background="@null"
+        android:orientation="horizontal"
+        >
+
+        <ImageButton
+            android:id="@+id/send_files_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="1dp"
+            android:background="@drawable/buttons"
+            android:src="@drawable/send_files"></ImageButton>
+
+        <EditText
+            android:id="@+id/input_message"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginEnd="1dp"
+            android:layout_toStartOf="@+id/speech_record_id"
+            android:layout_toEndOf="@+id/send_files_btn"
+            android:background="@drawable/inputs"
+            android:hint="type message here..."
+            android:maxLines="6"
+            android:padding="15dp"></EditText>
+
+        <ImageButton
+            android:id="@+id/speech_record_id"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="51dp"
+            android:background="@drawable/buttons"
+            android:src="@drawable/mic_icon">
+
+        </ImageButton>
+
+        <ImageButton
+            android:id="@+id/send_message_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/send_icon"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/buttons"
+            >
+        </ImageButton>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
