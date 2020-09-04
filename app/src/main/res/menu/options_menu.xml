@@ -27,5 +27,14 @@
 
     </item>
 
+    <item
+        android:icon="@drawable/search_icon"
+        android:title="Search"
+        android:id="@+id/search_icon_id"
+        app:showAsAction="ifRoom"
+        >
+
+    </item>
+
 
 </menu>
