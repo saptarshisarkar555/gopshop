@@ -4,9 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/password_activity_background"
+    android:backgroundTintMode="src_atop"
+    android:backgroundTint="#88FFFFFF"
     tools:context=".RegisterActivity">
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/register_image"
         android:layout_width="match_parent"
         android:layout_height="250dp"
@@ -14,22 +17,46 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:scaleType="fitCenter"/>
+        android:scaleType="fitCenter"/>-->
+
+    <TextView
+        android:id="@+id/register_name_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+
+        android:text="Register"
+        android:textColor="@color/textColor"
+        android:textSize="80sp"
+        android:textAlignment="center"
+        android:fontFamily="@font/strawberry_muffins"
+        app:layout_constraintBottom_toTopOf="@+id/register_email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.468" />
 
     <EditText
         android:id="@+id/register_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/register_image"
+        android:layout_below="@+id/register_name_textview"
         android:hint="Your email id"
+        android:fontFamily="@font/strawberry_muffins"
         android:inputType="textEmailAddress"
         android:background="@drawable/inputs"
         android:padding="4dp"
         android:drawableStart="@drawable/email"
         android:layout_alignParentLeft="true"
         android:drawableLeft="@drawable/email"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="45dp"
         android:layout_marginRight="17dp"
         android:layout_marginLeft="17dp"
         >
@@ -42,6 +69,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/register_email"
         android:hint="Your password"
+        android:fontFamily="@font/strawberry_muffins"
         android:inputType="textPassword"
         android:background="@drawable/inputs"
         android:padding="4dp"
@@ -67,6 +95,7 @@
         android:layout_marginRight="19dp"
         android:layout_marginLeft="19dp"
         android:text="Register"
+        android:fontFamily="@font/strawberry_muffins"
         android:textAllCaps="false"
         android:textSize="24dp"
         android:textColor="@android:color/background_light"
@@ -81,6 +110,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/register_button"
         android:text="Already have an account ?"
+        android:fontFamily="@font/strawberry_muffins"
         android:padding="4dp"
         android:layout_marginTop="2dp"
         android:layout_marginRight="23dp"
@@ -88,7 +118,7 @@
         android:textAlignment="center"
         android:textSize="17dp"
         android:textStyle="bold"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/textColor"
         android:layout_alignParentLeft="true"
         android:gravity="end"
         tools:ignore="RtlCompat">

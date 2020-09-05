@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@drawable/password_activity_background"
+    android:backgroundTintMode="src_atop"
+    android:backgroundTint="#88FFFFFF"
     tools:context=".OcrActivity">
 
     <EditText
@@ -15,6 +16,7 @@
         android:maxLines="20"
         android:layout_margin="10dp"
         android:hint="Capture the image"
+        android:fontFamily="@font/strawberry_muffins"
         android:text=""
         android:textIsSelectable="true"
         >
@@ -33,6 +35,7 @@
         android:background="@drawable/buttons"
         android:padding="4dp"
         android:text="Capture"
+        android:fontFamily="@font/strawberry_muffins"
         android:textAllCaps="false"
         android:textColor="@android:color/background_light"
         android:textSize="24dp">
@@ -51,6 +54,7 @@
         android:background="@drawable/buttons"
         android:padding="4dp"
         android:text="Scan Text"
+        android:fontFamily="@font/strawberry_muffins"
         android:textAllCaps="false"
         android:textColor="@android:color/background_light"
         android:textSize="24dp"
@@ -66,6 +70,7 @@
         android:layout_alignParentRight="true"
         android:background="@drawable/buttons"
         android:text="Copy"
+        android:fontFamily="@font/strawberry_muffins"
         android:textSize="18dp"
         android:textAllCaps="false"
         android:textColor="@android:color/background_light"
@@ -80,6 +85,7 @@
         android:background="@drawable/buttons"
         android:layout_toStartOf="@id/copy_ocr_text_btn"
         android:text="Listen"
+        android:fontFamily="@font/strawberry_muffins"
         android:textSize="18dp"
         android:textAllCaps="false"
         android:textColor="@android:color/background_light"

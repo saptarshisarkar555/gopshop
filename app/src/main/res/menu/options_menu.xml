@@ -15,11 +15,27 @@
     </item>
 
     <item
+        android:title="Customization"
+        android:id="@+id/main_customization_option"
+        app:showAsAction="never"
+        >
+
+    </item>
+
+    <item
         android:title="Settings"
         android:id="@+id/main_settings_option"
         app:showAsAction="never">
 
     </item>
+
+    <item
+        android:title="Set PIN"
+        android:id="@+id/main_password_option"
+        app:showAsAction="never">
+
+    </item>
+
     <item
         android:title="Logout"
         android:id="@+id/main_logout_option"
@@ -35,6 +51,8 @@
         >
 
     </item>
+
+
 
 
 </menu>

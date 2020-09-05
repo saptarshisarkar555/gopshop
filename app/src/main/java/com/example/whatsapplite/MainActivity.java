@@ -159,6 +159,12 @@ public class MainActivity extends AppCompatActivity {
         if(item.getItemId()==R.id.main_settings_option){
             SendUserToSettingsActivity();
         }
+        if(item.getItemId()==R.id.main_password_option){
+            SendUserToPasswordSettingActivity();
+        }
+        if(item.getItemId()==R.id.main_customization_option){
+            SendUserToCustomizationActivity();
+        }
         if(item.getItemId()==R.id.main_create_group_option){
             RequestNewGroup();
         }
@@ -174,6 +180,8 @@ public class MainActivity extends AppCompatActivity {
         return true;
 
     }
+
+
 
     private void RequestNewGroup() {
         AlertDialog.Builder builder =new AlertDialog.Builder(MainActivity.this,R.style.AlertDiolog);
@@ -230,10 +238,20 @@ public class MainActivity extends AppCompatActivity {
         startActivity(settingIntent);
     }
 
+    private void SendUserToPasswordSettingActivity() {
+        Intent settingIntent =new Intent(MainActivity.this,PasswordSettingsActivity.class);
+        startActivity(settingIntent);
+    }
+
     private void SendUserToFindFriendsActivity() {
         Intent findFriendsIntent =new Intent(MainActivity.this,FindFriendsActivity.class);
         startActivity(findFriendsIntent);
 
+    }
+
+    private void SendUserToCustomizationActivity() {
+        Intent findFriendsIntent =new Intent(MainActivity.this,CustomizationActivity.class);
+        startActivity(findFriendsIntent);
     }
 
     private void updateUserStatus(String state)

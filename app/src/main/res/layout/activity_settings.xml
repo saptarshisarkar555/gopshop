@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@drawable/password_activity_background"
+    android:backgroundTintMode="src_atop"
+    android:backgroundTint="#88FFFFFF"
     tools:context=".SettingsActivity">
 
     <include
@@ -16,8 +18,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/set_profile_image_id"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_width="260dp"
+        android:layout_height="260dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
@@ -36,6 +38,7 @@
         android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark"
         android:textStyle="bold"
+        android:fontFamily="@font/strawberry_muffins"
         android:background="@drawable/inputs"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
@@ -54,6 +57,7 @@
         android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark"
         android:textStyle="bold"
+        android:fontFamily="@font/strawberry_muffins"
         android:background="@drawable/inputs"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
@@ -69,6 +73,7 @@
         android:text="Update"
         android:textAlignment="center"
         android:textColor="@color/textColor"
+        android:fontFamily="@font/strawberry_muffins"
         android:textStyle="bold"
         android:background="@drawable/buttons"
         android:layout_marginStart="15dp"
@@ -80,50 +85,5 @@
         android:textSize="20sp"
         />
 
-    <TextView
-        android:id="@+id/dark_mode_text_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Dark Mode"
-        android:layout_below="@id/update_settings_button"
-        android:textSize="10dp"
-        android:textColor="@color/textColor"
-        android:textStyle="bold"
-        android:textAlignment="center"
-        android:padding="15dp"
-        >
-
-    </TextView>
-
-    <Button
-        android:id="@+id/on_btn_id"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
-        android:layout_below="@id/dark_mode_text_id"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="120dp"
-        android:layout_marginEnd="11dp"
-        android:background="@drawable/buttons"
-        android:onClick="btndarkmodeOn"
-        android:text="ON"
-        android:textColor="@color/textColor"
-        android:textSize="10dp">
-
-    </Button>
-
-    <Button
-        android:layout_width="26dp"
-        android:layout_height="26dp"
-        android:layout_below="@id/dark_mode_text_id"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="120dp"
-        android:background="@drawable/buttons"
-        android:onClick="btndarkmodeOff"
-        android:text="OFF"
-        android:textColor="@color/textColor"
-        android:textSize="10dp">
-
-    </Button>
 
 </RelativeLayout>

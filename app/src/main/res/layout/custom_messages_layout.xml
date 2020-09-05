@@ -24,8 +24,9 @@
         android:background="@drawable/receiver_messages_layout"
         android:text="Rceiver message here"
         android:padding="10dp"
-        android:textSize="14sp"
-        android:textStyle="bold"
+        android:textSize="16sp"
+
+        android:fontFamily="@font/strawberry_muffins"
         android:textColor="@android:color/black"
         >
     </TextView>
@@ -61,9 +62,9 @@
         android:layout_alignParentTop="@+id/receiver_message_text"
         android:background="@drawable/sender_messages_layout"
         android:text="Sender Message"
-        android:textSize="14sp"
+        android:fontFamily="@font/strawberry_muffins"
+        android:textSize="16sp"
         android:padding="10dp"
-        android:textStyle="bold"
         android:textColor="@android:color/black"
         >
     </TextView>

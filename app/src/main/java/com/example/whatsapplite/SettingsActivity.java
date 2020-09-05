@@ -10,12 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.widget.Toolbar;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -53,6 +51,7 @@ public class SettingsActivity extends AppCompatActivity {
     private Toolbar mToolbar;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +85,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+
         mToolbar =findViewById(R.id.setting_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -101,6 +101,7 @@ public class SettingsActivity extends AppCompatActivity {
         userStatus=findViewById(R.id.set_profile_status);
         userProfileImage=findViewById(R.id.set_profile_image_id);
         loadingBar =new ProgressDialog(this);
+
     }
 
     @Override
@@ -246,15 +247,5 @@ public class SettingsActivity extends AppCompatActivity {
         finish();
     }
 
-    public void btndarkmodeOff(View view) {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        startActivity(new Intent(getApplicationContext(),SettingsActivity.class));
-        finish();
-    }
 
-    public void btndarkmodeOn(View view) {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        startActivity(new Intent(getApplicationContext(),SettingsActivity.class));
-        finish();
-    }
 }
