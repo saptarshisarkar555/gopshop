@@ -32,6 +32,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     private FirebaseAuth mAuth;
     private DatabaseReference userRef;
 
+
     public MessageAdapter (List<Messages> userMessagesList){
         this.userMessagesList=userMessagesList;
 
@@ -41,6 +42,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         public TextView senderMessageText, receiverMessageText;
         public CircleImageView receiverProfileImage;
         public ImageView messageSenderPicture, messageReceiverPicture;
+        public TextView text_seen;
 
         public MessageViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -50,6 +52,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             receiverProfileImage=itemView.findViewById(R.id.message_profile_image);
             messageSenderPicture=itemView.findViewById(R.id.message_sender_image_view);
             messageReceiverPicture=itemView.findViewById(R.id.message_receiver_image_view);
+            text_seen=itemView.findViewById(R.id.sender_text_seen);
 
         }
     }
@@ -100,6 +103,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
         holder.messageSenderPicture.setVisibility(View.GONE);
         holder.messageReceiverPicture.setVisibility(View.GONE);
+
 
 
         if(fromMessageType.equals("text")){
@@ -173,8 +177,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                                 {
                                         "Delete for me",
                                         "View this Image",
-                                        "Cancel",
-                                        "Delete for Everyone"
+                                        "Delete for Everyone",
+                                        "Cancel"
 
                                 };
                         AlertDialog.Builder builder=new AlertDialog.Builder(holder.itemView.getContext());
@@ -268,6 +272,19 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                     }
                 }
             });
+        }
+
+        //text seen
+        if(position == userMessagesList.size()-1){
+            if(messages.isIsseen()){
+                holder.text_seen.setText("Seen");
+            }
+            else{
+                holder.text_seen.setText("Delivered");
+            }
+        }
+        else {
+            holder.text_seen.setVisibility(View.GONE);
         }
 
     }

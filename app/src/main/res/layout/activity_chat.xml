@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -40,7 +41,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginEnd="1dp"
             android:background="@drawable/buttons"
-            android:src="@drawable/send_files"></ImageButton>
+            app:srcCompat="@drawable/send_files"></ImageButton>
 
         <EditText
             android:id="@+id/input_message"
@@ -51,7 +52,7 @@
             android:layout_toEndOf="@+id/send_files_btn"
             android:background="@drawable/inputs"
             android:hint="type message here..."
-            android:fontFamily="@font/strawberry_muffins"
+
             android:maxLines="6"
             android:padding="15dp"></EditText>
 
@@ -62,7 +63,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="51dp"
             android:background="@drawable/buttons"
-            android:src="@drawable/mic_icon">
+            app:srcCompat="@drawable/mic_icon">
 
         </ImageButton>
 
@@ -70,7 +71,7 @@
             android:id="@+id/send_message_btn"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/send_icon"
+            app:srcCompat="@drawable/send_icon"
             android:layout_alignParentEnd="true"
             android:background="@drawable/buttons"
             >

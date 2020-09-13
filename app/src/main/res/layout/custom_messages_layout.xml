@@ -31,6 +31,7 @@
         >
     </TextView>
 
+
     <ImageView
         android:id="@+id/message_sender_image_view"
         android:layout_width="150dp"
@@ -68,6 +69,18 @@
         android:textColor="@android:color/black"
         >
     </TextView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sender_text_seen"
+        android:layout_below="@id/sender_message_text"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        >
+
+    </TextView>
+
 
 
 
