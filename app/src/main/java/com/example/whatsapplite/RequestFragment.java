@@ -107,7 +107,7 @@ public class RequestFragment extends Fragment {
                                                     final String requestUserName=dataSnapshot.child("name").getValue().toString();
                                                     final String requestUserStatus=dataSnapshot.child("status").getValue().toString();
                                                     holder.userName.setText(requestUserName);
-                                                    holder.userStatus.setText("wants to connect with you...");
+                                                    holder.userStatus.setText("Wants to connect with you...");
 
                                                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                                                     @Override
@@ -216,7 +216,7 @@ public class RequestFragment extends Fragment {
                                                 final String requestUserName=dataSnapshot.child("name").getValue().toString();
                                                 final String requestUserStatus=dataSnapshot.child("status").getValue().toString();
                                                 holder.userName.setText(requestUserName);
-                                                holder.userStatus.setText("you have send a request to "+ requestUserName);
+                                                holder.userStatus.setText("You have send a request to "+ requestUserName);
 
                                                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                                                     @Override

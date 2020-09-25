@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.whatsapplite.notifications.Token;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,6 +27,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -43,6 +45,7 @@ public class ChatsFragment extends Fragment {
 
     private DatabaseReference ChatsRef,usersRef;
     private FirebaseAuth mAuth;
+   // String mUID;
 
     public ChatsFragment() {
         // Required empty public constructor
@@ -116,6 +119,13 @@ public class ChatsFragment extends Fragment {
 
                                         if(state.equals("online")){
                                             holder.userStatus.setText("online");
+
+                                           /* //for notification
+                                            mUID = currentUser.getUid();
+                                            SharedPreferences sp = getSharedPreferences("SP_USER", MODE_PRIVATE);
+                                            SharedPreferences.Editor editor = sp.edit();
+                                            editor.putString("Current_USERID", mUID);
+                                            editor.apply();*/
                                         }
                                         else if(state.equals("offline")){
                                             holder.userStatus.setText("Last seen: " +date+" "+time);
@@ -184,6 +194,7 @@ public class ChatsFragment extends Fragment {
                         });
                     }
 
+
                     @NonNull
                     @Override
                     public ChatsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -195,6 +206,14 @@ public class ChatsFragment extends Fragment {
                 };
         chatsList.setAdapter(adapter);
         adapter.startListening();
+
+        updateToken(FirebaseInstanceId.getInstance().getToken());
+    }
+
+    public void updateToken(String token) {
+        DatabaseReference ref= FirebaseDatabase.getInstance().getReference("Tokens");
+        Token mToken= new Token(token);
+        ref.child(currentUserID).setValue(mToken);
     }
 
     public static class ChatsViewHolder extends RecyclerView.ViewHolder{

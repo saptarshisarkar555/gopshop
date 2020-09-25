@@ -32,6 +32,12 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.whatsapplite.notifications.APIService;
+import com.example.whatsapplite.notifications.Client;
+import com.example.whatsapplite.notifications.Data;
+import com.example.whatsapplite.notifications.Response;
+import com.example.whatsapplite.notifications.Sender;
+import com.example.whatsapplite.notifications.Token;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.Marker;
@@ -45,6 +51,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -60,6 +67,8 @@ import java.util.Locale;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -94,10 +103,15 @@ public class ChatActivity extends AppCompatActivity {
     private Marker driverMarker;
     private static PubNub pubNub;
 
+    //for notification
+    APIService apiService;
+    private boolean notify = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
 
         mAuth = FirebaseAuth.getInstance();
         messageSenderID = mAuth.getCurrentUser().getUid();
@@ -107,6 +121,10 @@ public class ChatActivity extends AppCompatActivity {
         messageReceiverName = getIntent().getExtras().get("visit_user_name").toString();
         messageReceiverImage = getIntent().getExtras().get("visit_image").toString();
 
+
+        //#create api service
+        apiService = Client.getRetrofit("https://fcm.googleapis.com/").create(APIService.class);
+
         InitializeControllers();
 
         userName.setText(messageReceiverName);
@@ -115,7 +133,9 @@ public class ChatActivity extends AppCompatActivity {
         SendMessageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                notify  = true;
                 SendMessages();
+                MessageInputText.setText("");
             }
         });
 
@@ -288,6 +308,7 @@ public class ChatActivity extends AppCompatActivity {
 
         loadingBar = new ProgressDialog(this);
 
+
         /*Calendar calendar=Calendar.getInstance();
 
         SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
@@ -295,6 +316,39 @@ public class ChatActivity extends AppCompatActivity {
 
         SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
         saveCurrentDate=currentDate.format(calendar.getTime());*/
+    }
+
+    private void sendNotification(final String messageReceiverID, final String name, final String message) {
+        DatabaseReference allTokens = FirebaseDatabase.getInstance().getReference("Tokens");
+        Query query = allTokens.orderByKey().equalTo(messageReceiverID);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot ds: snapshot.getChildren()){
+                    Token token= ds.getValue(Token.class);
+                    Data data = new Data(messageSenderID, name+": "+message, "New Message", messageReceiverID, R.drawable.applogo );
+                    Sender sender= new Sender(data, token.getToken());
+                    apiService.sendNotification(sender)
+                            .enqueue(new Callback<Response>() {
+                                @Override
+                                public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+//                                    Toast.makeText(ChatActivity.this, ""+response.message(), Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onFailure(Call<Response> call, Throwable t) {
+
+                                }
+                            });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     @Override
@@ -484,7 +538,8 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void SendMessages() {
-        String messageText = MessageInputText.getText().toString();
+
+        final String messageText = MessageInputText.getText().toString();
         // String messageTextCopy = copyText;
 
         if (TextUtils.isEmpty(messageText)) {
@@ -521,7 +576,24 @@ public class ChatActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(ChatActivity.this, "Error", Toast.LENGTH_SHORT).show();
                     }
-                    MessageInputText.setText("");
+
+                }
+            });
+
+            String msg = messageText;
+            DatabaseReference database = FirebaseDatabase.getInstance().getReference("Users").child(messageSenderID);
+            database.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    Messages user = snapshot.getValue(Messages.class);
+                    if (notify) {
+                        sendNotification(messageReceiverID, user.getName(), messageText);
+                    }
+                    notify = false;
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
                 }
             });
 
