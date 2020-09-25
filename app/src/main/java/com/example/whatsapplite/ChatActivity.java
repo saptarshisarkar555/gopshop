@@ -73,7 +73,10 @@ import retrofit2.Callback;
 public class ChatActivity extends AppCompatActivity {
 
     public static final Integer RecordAudioRequestCode = 1;
+    private static PubNub pubNub;
     private final List<Messages> messagesList = new ArrayList<>();
+    //for notification
+    APIService apiService;
     private SpeechRecognizer speechRecognizer;
     private String messageReceiverID, messageReceiverName, messageReceiverImage, messageSenderID;
     private TextView userName, userLastSeen;
@@ -87,24 +90,16 @@ public class ChatActivity extends AppCompatActivity {
     private LinearLayoutManager linearLayoutManager;
     private MessageAdapter messageAdapter;
     private RecyclerView userMessagesList;
-
     //  private String saveCurrentTime , saveCurrentDate;
     private String checker = "", myUri = "";
     private StorageTask uploadTask;
     private Uri fileUri;
-
     private ProgressDialog loadingBar;
-
     //text seen
     private ValueEventListener seenListener;
-
     private SupportMapFragment mMapFragment; // MapView UI element
     private GoogleMap mGoogleMap; // object that represents googleMap and allows us to use Google Maps API features
     private Marker driverMarker;
-    private static PubNub pubNub;
-
-    //for notification
-    APIService apiService;
     private boolean notify = false;
 
     @Override
@@ -119,8 +114,12 @@ public class ChatActivity extends AppCompatActivity {
 
         messageReceiverID = getIntent().getExtras().get("visit_user_id").toString();
         messageReceiverName = getIntent().getExtras().get("visit_user_name").toString();
-        messageReceiverImage = getIntent().getExtras().get("visit_image").toString();
-
+        Object messageReceiverImageObj = getIntent().getExtras().get("visit_image");
+        if (messageReceiverImageObj != null) {
+            messageReceiverImage = messageReceiverImageObj.toString();
+        } else {
+            messageReceiverImage = "default_image";
+        }
 
         //#create api service
         apiService = Client.getRetrofit("https://fcm.googleapis.com/").create(APIService.class);
@@ -133,7 +132,7 @@ public class ChatActivity extends AppCompatActivity {
         SendMessageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                notify  = true;
+                notify = true;
                 SendMessages();
                 MessageInputText.setText("");
             }
@@ -324,10 +323,10 @@ public class ChatActivity extends AppCompatActivity {
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot ds: snapshot.getChildren()){
-                    Token token= ds.getValue(Token.class);
-                    Data data = new Data(messageSenderID, name+": "+message, "New Message", messageReceiverID, R.drawable.applogo );
-                    Sender sender= new Sender(data, token.getToken());
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    Token token = ds.getValue(Token.class);
+                    Data data = new Data(messageSenderID, name + ": " + message, "New Message", messageReceiverID, R.drawable.applogo);
+                    Sender sender = new Sender(data, token.getToken());
                     apiService.sendNotification(sender)
                             .enqueue(new Callback<Response>() {
                                 @Override
@@ -513,7 +512,7 @@ public class ChatActivity extends AppCompatActivity {
                 Iterable<DataSnapshot> snapshots = snapshot.getChildren();
                 Iterator<DataSnapshot> iterator = snapshots.iterator();
 
-                while (iterator.hasNext()){
+                while (iterator.hasNext()) {
                     DataSnapshot snapshot1 = iterator.next();
                     Messages messages = snapshot1.getValue(Messages.class);
                     if (!messages.getFrom().equals(messageReceiverID)) {
@@ -525,7 +524,7 @@ public class ChatActivity extends AppCompatActivity {
                         messageTextBody.put("isseen", true);
                         snapshot1.getRef().updateChildren(messageTextBody);
                     } else {
-                        
+
                     }
                 }
             }

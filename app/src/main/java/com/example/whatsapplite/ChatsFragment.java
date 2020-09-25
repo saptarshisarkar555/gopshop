@@ -42,7 +42,6 @@ public class ChatsFragment extends Fragment {
     private RecyclerView chatsList;
     private String currentUserID;
 
-
     private DatabaseReference ChatsRef,usersRef;
     private FirebaseAuth mAuth;
    // String mUID;
@@ -50,7 +49,6 @@ public class ChatsFragment extends Fragment {
     public ChatsFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

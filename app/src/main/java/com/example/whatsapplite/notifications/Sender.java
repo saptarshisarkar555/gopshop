@@ -1,7 +1,6 @@
 package com.example.whatsapplite.notifications;
 
-public class Sender
-{
+public class Sender {
     private Data data;
     private String to;
 
