@@ -538,7 +538,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private void SendMessages() {
 
-        final String messageText = MessageInputText.getText().toString();
+        final String messageText = MessageInputText.getText().toString().trim();
         // String messageTextCopy = copyText;
 
         if (TextUtils.isEmpty(messageText)) {
