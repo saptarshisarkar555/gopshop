@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,7 +54,15 @@ public class ContactsFragment extends Fragment {
         myContactsList.setLayoutManager(new LinearLayoutManager(getContext()));
 
         mAuth=FirebaseAuth.getInstance();
-        currentUserID=mAuth.getCurrentUser().getUid();
+//        currentUserID=mAuth.getCurrentUser().getUid();
+
+        FirebaseUser mFirebaseUser = mAuth.getCurrentUser();
+        if(mFirebaseUser != null) {
+            currentUserID = mFirebaseUser.getUid(); //Do what you need to do with the id
+        }
+        else {
+            currentUserID="lzYPB1A11wb8amh6paquffsXKfz2";
+        }
 
         ContactsRef = FirebaseDatabase.getInstance().getReference().child("Contacts").child(currentUserID);
         UsersRef =FirebaseDatabase.getInstance().getReference().child("Users");
