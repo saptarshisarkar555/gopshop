@@ -65,6 +65,11 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.2'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.2'
     implementation 'androidx.multidex:multidex:2.0.0'
+    //videocall
+    implementation 'com.opentok.android:opentok-android-sdk:2.15.3'
+    implementation 'com.hbb20:ccp:2.1.9'
+    implementation 'pub.devrel:easypermissions:0.4.0'
+
     testImplementation 'junit:junit:4.12'
 }
 

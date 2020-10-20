@@ -16,6 +16,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -84,7 +85,7 @@ public class ChatActivity extends AppCompatActivity {
     private FirebaseUser fuser;
     private Toolbar chatToolBar;
     private FirebaseAuth mAuth;
-    private DatabaseReference RootRef;
+    private DatabaseReference RootRef,usersRef;
     private ImageButton SendMessageButton, SendFilesButton, micButton;
     private EditText MessageInputText;
     private LinearLayoutManager linearLayoutManager;
@@ -101,6 +102,8 @@ public class ChatActivity extends AppCompatActivity {
     private GoogleMap mGoogleMap; // object that represents googleMap and allows us to use Google Maps API features
     private Marker driverMarker;
     private boolean notify = false;
+    private Button videoButton;
+    private  String calledBy = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +114,7 @@ public class ChatActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         messageSenderID = mAuth.getCurrentUser().getUid();
         RootRef = FirebaseDatabase.getInstance().getReference();
+        usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
         messageReceiverID = getIntent().getExtras().get("visit_user_id").toString();
         messageReceiverName = getIntent().getExtras().get("visit_user_name").toString();
@@ -139,6 +143,8 @@ public class ChatActivity extends AppCompatActivity {
         });
 
         DisplayLastSeen();
+
+        checkForReceivingCall();
 
         SendFilesButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -255,8 +261,20 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+        videoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent callingIntent = new Intent(ChatActivity.this, CallingActivity.class);
+                callingIntent.putExtra("visit_user_id", messageReceiverID);
+                callingIntent.putExtra("visit_image",messageReceiverImage);
+                callingIntent.putExtra("visit_user_name",messageReceiverName);
+                startActivity(callingIntent);
+            }
+        });
+
 
     }
+
 
     private void checkPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -306,6 +324,8 @@ public class ChatActivity extends AppCompatActivity {
         userMessagesList.setAdapter(messageAdapter);
 
         loadingBar = new ProgressDialog(this);
+
+        videoButton =findViewById(R.id.video_call_button_id);
 
 
         /*Calendar calendar=Calendar.getInstance();
@@ -430,6 +450,31 @@ public class ChatActivity extends AppCompatActivity {
                 Toast.makeText(this, "Error....", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    //video call
+    private void checkForReceivingCall() {
+        usersRef.child(messageSenderID)
+                .child("Ringing")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.hasChild("ringing"))
+                        {
+                            calledBy = dataSnapshot.child("ringing").getValue().toString();
+
+                            Intent callingIntent = new Intent(ChatActivity.this, CallingActivity.class);
+                            callingIntent.putExtra("visit_user_id", calledBy);
+                            startActivity(callingIntent);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
     }
 
     private void DisplayLastSeen() {
