@@ -1,17 +1,21 @@
 package com.example.whatsapplite;
 
+
 public class Contacts {
+    public int id;
     public String name,status,image;
 
     public Contacts(){
 
     }
 
-    public Contacts(String name, String status, String image) {
+    public Contacts( int id, String name, String status, String image) {
+        this.id=id;
         this.name = name;
         this.status = status;
         this.image = image;
     }
+    public int getId() {return id;}
 
     public String getName() {
         return name;
@@ -37,3 +41,4 @@ public class Contacts {
         this.image = image;
     }
 }
+

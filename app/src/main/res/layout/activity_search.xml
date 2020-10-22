@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/password_activity_background"
+    android:backgroundTintMode="src_atop"
+    android:backgroundTint="#88FFFFFF"
+    tools:context=".SearchActivity">
+    <RelativeLayout
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        >
+
+        <EditText
+            android:id="@+id/search_name"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="5dp"
+            android:background="@android:color/white"
+            android:hint="Contact Name"
+            android:padding="9dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/search_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="-88dp"
+            android:layout_toRightOf="@+id/search_name"
+            android:background="@color/colorPrimary"
+            android:padding="9dp"
+            android:textAllCaps="false"
+            android:text="Search"
+            android:textColor="@android:color/white"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_list"
+        android:layout_width="400dp"
+        android:layout_height="677dp"
+        android:layout_below="@+id/search_bar"
+        android:layout_marginTop="4dp" />
+
+
+</RelativeLayout>

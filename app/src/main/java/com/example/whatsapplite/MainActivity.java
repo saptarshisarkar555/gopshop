@@ -182,7 +182,10 @@ public class MainActivity extends AppCompatActivity {
             SendUserToPasswordSettingActivity();
         } else if(item.getItemId()==R.id.main_customization_option){
             SendUserToCustomizationActivity();
-        } else if(item.getItemId()==R.id.main_create_group_option){
+        }else if(item.getItemId()==R.id.search_icon_id){
+            SendUserToSearch();
+        }
+        else if(item.getItemId()==R.id.main_create_group_option){
             shareLocation();
         } else if(item.getItemId()==R.id.main_find_friend_option){
             SendUserToFindFriendsActivity();
@@ -327,6 +330,12 @@ public class MainActivity extends AppCompatActivity {
     private void SendUserToCustomizationActivity() {
         Intent findFriendsIntent =new Intent(MainActivity.this,CustomizationActivity.class);
         startActivity(findFriendsIntent);
+    }
+
+    private void SendUserToSearch()
+    {
+        Intent SearchIntent = new Intent (MainActivity.this, SearchActivity.class);
+        startActivity(SearchIntent);
     }
 
     private void updateUserStatus(String state)

@@ -32,7 +32,7 @@ public class VideoChatActivity extends AppCompatActivity implements Session.Sess
 
     private static String API_Key = "46960004";
     private static String SESSION_ID = "2_MX40Njk2MDAwNH5-MTYwMzE3MzgwMjI5Nn5uSzlBdFUrTDJldndpSzFibnV4NDdxUkV-fg";
-    private static String TOKEN = "T1==cGFydG5lcl9pZD00Njk2MDAwNCZzaWc9MDc2NjI5N2I5MjIwM2Q2OWVkZTYwYWYxNzdjNTg5ZDRjNWUzOTU5OTpzZXNzaW9uX2lkPTJfTVg0ME5qazJNREF3Tkg1LU1UWXdNekUzTXpnd01qSTVObjV1U3psQmRGVXJUREpsZG5kcFN6RmliblY0TkRkeFVrVi1mZyZjcmVhdGVfdGltZT0xNjAzMTc0MDAwJm5vbmNlPTAuNjUyMzIwMDc5NjMyNjg0NSZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNjAzMTk1NTk5JmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9";
+    private static String TOKEN = "T1==cGFydG5lcl9pZD00Njk2MDAwNCZzaWc9NTBjYjA5YTVmMmQ5MDkzYzJlZmQ5ZjdmMzY4MDJlN2M4NWI4ZDBlMTpzZXNzaW9uX2lkPTJfTVg0ME5qazJNREF3Tkg1LU1UWXdNekUzTXpnd01qSTVObjV1U3psQmRGVXJUREpsZG5kcFN6RmliblY0TkRkeFVrVi1mZyZjcmVhdGVfdGltZT0xNjAzMjA5NDAyJm5vbmNlPTAuMjY3NTk5NjM5MTIyNDEwNyZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNjA1ODA0OTk5JmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9";
     private static final String LOG_TAG = VideoChatActivity.class.getSimpleName();
     private static final int RC_VIDEO_APP_PERM = 124;
 
@@ -138,7 +138,7 @@ public class VideoChatActivity extends AppCompatActivity implements Session.Sess
             mSession.setSessionListener(VideoChatActivity.this);
             mSession.connect(TOKEN);
         } else {
-            EasyPermissions.requestPermissions(this, "Hey, this app need Mic and Camera Permission, gran it.", RC_VIDEO_APP_PERM, perms);
+            EasyPermissions.requestPermissions(this, "Hey, this app need Mic and Camera Permission.", RC_VIDEO_APP_PERM, perms);
         }
     }
 
