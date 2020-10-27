@@ -265,6 +265,7 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent callingIntent = new Intent(ChatActivity.this, CallingActivity.class);
+                callingIntent.putExtra("isCalling", true);
                 callingIntent.putExtra("visit_user_id", messageReceiverID);
                 callingIntent.putExtra("visit_image",messageReceiverImage);
                 callingIntent.putExtra("visit_user_name",messageReceiverName);
@@ -459,8 +460,7 @@ public class ChatActivity extends AppCompatActivity {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.hasChild("ringing"))
-                        {
+                        if (dataSnapshot.hasChild("ringing")) {
                             calledBy = dataSnapshot.child("ringing").getValue().toString();
 
                             Intent callingIntent = new Intent(ChatActivity.this, CallingActivity.class);

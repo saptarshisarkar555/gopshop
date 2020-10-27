@@ -60,7 +60,7 @@ public class VideoChatActivity extends AppCompatActivity implements Session.Sess
         closeVideoChatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                usersRef.addValueEventListener(new ValueEventListener() {
+                usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -88,7 +88,6 @@ public class VideoChatActivity extends AppCompatActivity implements Session.Sess
                                 mSubscriber.destroy();
                             }
 
-
                             startActivity(new Intent(VideoChatActivity.this, MainActivity.class));
                             finish();
                         } else {
@@ -114,7 +113,6 @@ public class VideoChatActivity extends AppCompatActivity implements Session.Sess
         });
 
         requestPermission();
-
     }
 
     @Override
