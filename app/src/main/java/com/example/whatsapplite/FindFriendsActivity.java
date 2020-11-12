@@ -49,13 +49,13 @@ public class FindFriendsActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        FirebaseRecyclerOptions<Contacts>options=new FirebaseRecyclerOptions.Builder<Contacts>()
-                .setQuery(UsersRef,Contacts.class)
+        FirebaseRecyclerOptions<Contact>options=new FirebaseRecyclerOptions.Builder<Contact>()
+                .setQuery(UsersRef, Contact.class)
                 .build();
 
-        FirebaseRecyclerAdapter<Contacts,FindFriendViewHolder>adapter=new FirebaseRecyclerAdapter<Contacts, FindFriendViewHolder>(options) {
+        FirebaseRecyclerAdapter<Contact,FindFriendViewHolder>adapter=new FirebaseRecyclerAdapter<Contact, FindFriendViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull FindFriendViewHolder holder, final int position, @NonNull Contacts model) {
+            protected void onBindViewHolder(@NonNull FindFriendViewHolder holder, final int position, @NonNull Contact model) {
                 holder.userName.setText(model.getName());
                 holder.userStatus.setText(model.getStatus());
                 Picasso.get().load(model.getImage()).placeholder(R.drawable.profile_image).into(holder.profileImage);

@@ -85,7 +85,7 @@ public class ChatActivity extends AppCompatActivity {
     private FirebaseUser fuser;
     private Toolbar chatToolBar;
     private FirebaseAuth mAuth;
-    private DatabaseReference RootRef,usersRef;
+    private DatabaseReference rootRef, usersRef;
     private ImageButton SendMessageButton, SendFilesButton, micButton;
     private EditText MessageInputText;
     private LinearLayoutManager linearLayoutManager;
@@ -103,7 +103,7 @@ public class ChatActivity extends AppCompatActivity {
     private Marker driverMarker;
     private boolean notify = false;
     private Button videoButton;
-    private  String calledBy = "";
+    private String calledBy = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +113,7 @@ public class ChatActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         messageSenderID = mAuth.getCurrentUser().getUid();
-        RootRef = FirebaseDatabase.getInstance().getReference();
+        rootRef = FirebaseDatabase.getInstance().getReference();
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
         messageReceiverID = getIntent().getExtras().get("visit_user_id").toString();
@@ -267,8 +267,8 @@ public class ChatActivity extends AppCompatActivity {
                 Intent callingIntent = new Intent(ChatActivity.this, CallingActivity.class);
                 callingIntent.putExtra("isCalling", true);
                 callingIntent.putExtra("visit_user_id", messageReceiverID);
-                callingIntent.putExtra("visit_image",messageReceiverImage);
-                callingIntent.putExtra("visit_user_name",messageReceiverName);
+                callingIntent.putExtra("visit_image", messageReceiverImage);
+                callingIntent.putExtra("visit_user_name", messageReceiverName);
                 startActivity(callingIntent);
             }
         });
@@ -326,7 +326,7 @@ public class ChatActivity extends AppCompatActivity {
 
         loadingBar = new ProgressDialog(this);
 
-        videoButton =findViewById(R.id.video_call_button_id);
+        videoButton = findViewById(R.id.video_call_button_id);
 
 
         /*Calendar calendar=Calendar.getInstance();
@@ -392,7 +392,7 @@ public class ChatActivity extends AppCompatActivity {
                 final String messageSenderRef = "Messages/" + messageSenderID + "/" + messageReceiverID;
                 final String messageReceiverRef = "Messages/" + messageReceiverID + "/" + messageSenderID;
 
-                DatabaseReference userMessaageKeyRef = RootRef.child("Messages")
+                DatabaseReference userMessaageKeyRef = rootRef.child("Messages")
                         .child(messageSenderID).child(messageReceiverID).push();
 
                 final String messagePushID = userMessaageKeyRef.getKey();
@@ -430,7 +430,7 @@ public class ChatActivity extends AppCompatActivity {
 
                             messageBodyDetails.put(messageReceiverRef + "/" + messagePushID, messageTextBody);
 
-                            RootRef.updateChildren(messageBodyDetails).addOnCompleteListener(new OnCompleteListener() {
+                            rootRef.updateChildren(messageBodyDetails).addOnCompleteListener(new OnCompleteListener() {
                                 @Override
                                 public void onComplete(@NonNull Task task) {
                                     if (task.isSuccessful()) {
@@ -478,7 +478,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void DisplayLastSeen() {
-        RootRef.child("Users").child(messageReceiverID)
+        rootRef.child("Users").child(messageReceiverID)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -491,7 +491,7 @@ public class ChatActivity extends AppCompatActivity {
                                 userLastSeen.setText("online");
                             } else if (state.equals("offline")) {
                                 userLastSeen.setText("Last seen: " + date + " " + time);
-                                RootRef.removeEventListener(seenListener);
+                                rootRef.removeEventListener(seenListener);
                             }
                         } else {
                             userLastSeen.setText("offline");
@@ -509,7 +509,7 @@ public class ChatActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        RootRef.child("Messages").child(messageSenderID).child(messageReceiverID)
+        rootRef.child("Messages").child(messageSenderID).child(messageReceiverID)
                 .addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -550,7 +550,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private void seenMessages(final String messageSenderID) {
 
-        final DatabaseReference userMessaageKeyRef = RootRef.child("Messages").child(messageSenderID).child(messageReceiverID);
+        final DatabaseReference userMessaageKeyRef = rootRef.child("Messages").child(messageSenderID).child(messageReceiverID);
         seenListener = userMessaageKeyRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -592,7 +592,7 @@ public class ChatActivity extends AppCompatActivity {
             String messageSenderRef = "Messages/" + messageSenderID + "/" + messageReceiverID;
             String messageReceiverRef = "Messages/" + messageReceiverID + "/" + messageSenderID;
 
-            DatabaseReference userMessaageKeyRef = RootRef.child("Messages")
+            DatabaseReference userMessaageKeyRef = rootRef.child("Messages")
                     .child(messageSenderID).child(messageReceiverID).push();
 
             String messagePushID = userMessaageKeyRef.getKey();
@@ -612,7 +612,7 @@ public class ChatActivity extends AppCompatActivity {
 
             messageBodyDetails.put(messageReceiverRef + "/" + messagePushID, messageTextBody);
 
-            RootRef.updateChildren(messageBodyDetails).addOnCompleteListener(new OnCompleteListener() {
+            rootRef.updateChildren(messageBodyDetails).addOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(@NonNull Task task) {
                     if (task.isSuccessful()) {

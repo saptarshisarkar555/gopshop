@@ -75,14 +75,14 @@ public class ContactsFragment extends Fragment {
         super.onStart();
 
         FirebaseRecyclerOptions options=
-                new FirebaseRecyclerOptions.Builder<Contacts>()
-                .setQuery(ContactsRef,Contacts.class)
+                new FirebaseRecyclerOptions.Builder<Contact>()
+                .setQuery(ContactsRef, Contact.class)
                 .build();
 
-        FirebaseRecyclerAdapter<Contacts, ContactsViewHolder>adapter
-                =new FirebaseRecyclerAdapter<Contacts, ContactsViewHolder>(options) {
+        FirebaseRecyclerAdapter<Contact, ContactsViewHolder>adapter
+                =new FirebaseRecyclerAdapter<Contact, ContactsViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull final ContactsViewHolder holder, int position, @NonNull Contacts model) {
+            protected void onBindViewHolder(@NonNull final ContactsViewHolder holder, int position, @NonNull Contact model) {
                 final String usersIDs=getRef(position).getKey();
 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {

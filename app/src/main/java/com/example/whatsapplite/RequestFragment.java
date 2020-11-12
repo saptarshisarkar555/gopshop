@@ -72,15 +72,15 @@ public class RequestFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        FirebaseRecyclerOptions<Contacts>options=
-                new FirebaseRecyclerOptions.Builder<Contacts>()
-                .setQuery(ChatRequestRef.child(currentUserID),Contacts.class)
+        FirebaseRecyclerOptions<Contact>options=
+                new FirebaseRecyclerOptions.Builder<Contact>()
+                .setQuery(ChatRequestRef.child(currentUserID), Contact.class)
                 .build();
 
-        FirebaseRecyclerAdapter<Contacts,RequestViewHolder>adapter=
-                new FirebaseRecyclerAdapter<Contacts, RequestViewHolder>(options) {
+        FirebaseRecyclerAdapter<Contact,RequestViewHolder>adapter=
+                new FirebaseRecyclerAdapter<Contact, RequestViewHolder>(options) {
                     @Override
-                    protected void onBindViewHolder(@NonNull final RequestViewHolder holder, int position, @NonNull Contacts model) {
+                    protected void onBindViewHolder(@NonNull final RequestViewHolder holder, int position, @NonNull Contact model) {
                         holder.itemView.findViewById(R.id.request_accept_btn).setVisibility(View.VISIBLE);
                         holder.itemView.findViewById(R.id.request_cancel_btn).setVisibility(View.VISIBLE);
 

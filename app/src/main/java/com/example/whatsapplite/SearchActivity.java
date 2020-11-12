@@ -50,20 +50,20 @@ public class SearchActivity extends AppCompatActivity {
         super.onStart();
         final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users");
 
-        FirebaseRecyclerOptions<Contacts> options = null;
+        FirebaseRecyclerOptions<Contact> options = null;
         searchInput =inputText.getText().toString().toLowerCase();
         if(searchInput.equals(""))
         {
-            options = new FirebaseRecyclerOptions.Builder<Contacts>().setQuery(reference,Contacts.class).build();
+            options = new FirebaseRecyclerOptions.Builder<Contact>().setQuery(reference, Contact.class).build();
         }
         else
         {
-            options = new FirebaseRecyclerOptions.Builder<Contacts>().setQuery(reference.orderByChild("name").startAt(searchInput).endAt(searchInput+"\uf8ff"),Contacts.class).build();
+            options = new FirebaseRecyclerOptions.Builder<Contact>().setQuery(reference.orderByChild("name").startAt(searchInput).endAt(searchInput+"\uf8ff"), Contact.class).build();
         }
-        FirebaseRecyclerAdapter<Contacts, ContactsFragment.ContactsViewHolder> adapter =
-                new FirebaseRecyclerAdapter<Contacts, ContactsFragment.ContactsViewHolder>(options) {
+        FirebaseRecyclerAdapter<Contact, ContactsFragment.ContactsViewHolder> adapter =
+                new FirebaseRecyclerAdapter<Contact, ContactsFragment.ContactsViewHolder>(options) {
                     @Override
-                    protected void onBindViewHolder(@NonNull final ContactsFragment.ContactsViewHolder holder,final int position, @NonNull final Contacts model) {
+                    protected void onBindViewHolder(@NonNull final ContactsFragment.ContactsViewHolder holder,final int position, @NonNull final Contact model) {
                         holder.userName.setText(model.getName());
                         holder.userStatus.setText(model.getStatus());
                         Picasso.get().load(model.getImage()).placeholder(R.drawable.profile_image).into(holder.profileImage);
