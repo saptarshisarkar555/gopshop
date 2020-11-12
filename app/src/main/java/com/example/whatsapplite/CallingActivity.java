@@ -35,6 +35,8 @@ public class CallingActivity extends AppCompatActivity {
     private DatabaseReference usersRef;
     private boolean isCalling;
 
+
+
     private MediaPlayer mediaPlayer;
 
     @Override
@@ -86,6 +88,7 @@ public class CallingActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
+
                                     Intent intent = new Intent(CallingActivity.this, VideoChatActivity.class);
                                     startActivity(intent);
                                 }

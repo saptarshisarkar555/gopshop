@@ -46,20 +46,17 @@ import java.util.LinkedHashMap;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "MainActivity";
+    private static PubNub pubnub;
+    boolean doubleBackToExitPressedOnce = false;
     private ViewPager myViewPager;
     private TabLayout myTabLayout;
     private TabsAccessorAdapter myTabsAccessorAdaptor;
-
     private FirebaseAuth mAuth;
     private DatabaseReference RootRef;
     private String currentUserID;
-
-    private static PubNub pubnub;
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationRequest locationRequest;
-
-    boolean doubleBackToExitPressedOnce = false;
-
     //for notification
 
     /*String mUID;*/
@@ -69,23 +66,60 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mAuth=FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
-        RootRef= FirebaseDatabase.getInstance().getReference();
+        RootRef = FirebaseDatabase.getInstance().getReference();
 
-        Toolbar mToolbar= findViewById(R.id.main_page_toolbar);
+        Toolbar mToolbar = findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("GopShop");
 
-        myViewPager =(ViewPager) findViewById(R.id.main_tabs_pager);
-        myTabsAccessorAdaptor=new TabsAccessorAdapter(getSupportFragmentManager());
+        myViewPager = (ViewPager) findViewById(R.id.main_tabs_pager);
+        myTabsAccessorAdaptor = new TabsAccessorAdapter(getSupportFragmentManager());
         myViewPager.setAdapter(myTabsAccessorAdaptor);
 
-        myTabLayout =(TabLayout) findViewById(R.id.main_tabs);
+        myTabLayout = (TabLayout) findViewById(R.id.main_tabs);
         myTabLayout.setupWithViewPager(myViewPager);
 
 
+     //   getContactList();
+
     }
+
+    /*private void getContactList() {
+        ContentResolver cr = getContentResolver();
+        Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI,
+                null, null, null, null);
+
+        if ((cur != null ? cur.getCount() : 0) > 0) {
+            while (cur != null && cur.moveToNext()) {
+                String id = cur.getString(
+                        cur.getColumnIndex(ContactsContract.Contacts._ID));
+                String name = cur.getString(cur.getColumnIndex(
+                        ContactsContract.Contacts.DISPLAY_NAME));
+
+                if (cur.getInt(cur.getColumnIndex(
+                        ContactsContract.Contacts.HAS_PHONE_NUMBER)) > 0) {
+                    Cursor pCur = cr.query(
+                            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                            null,
+                            ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",
+                            new String[]{id}, null);
+                    while (pCur.moveToNext()) {
+                        String phoneNo = pCur.getString(pCur.getColumnIndex(
+                                ContactsContract.CommonDataKinds.Phone.NUMBER));
+                        Log.i(TAG, "Name: " + name);
+                        Log.i(TAG, "Phone Number: " + phoneNo);
+                    }
+                    pCur.close();
+                }
+            }
+        }
+        if (cur != null) {
+            cur.close();
+        }
+    }*/
+// get contack list
 
     @Override
     public void onBackPressed() {
@@ -101,23 +135,20 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void run() {
-                doubleBackToExitPressedOnce=false;
+                doubleBackToExitPressedOnce = false;
             }
         }, 2000);
     }
 
     @Override
-    protected void onStart()
-    {
+    protected void onStart() {
         super.onStart();
 
-        FirebaseUser currentUser=mAuth.getCurrentUser();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        if(currentUser==null)
-        {
+        if (currentUser == null) {
             SendUserToLoginActivity();
-        }
-        else{
+        } else {
             updateUserStatus("online");
             VerifyUserExistance();
         }
@@ -127,9 +158,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
 
-        FirebaseUser currentUser=mAuth.getCurrentUser();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        if(currentUser!= null){
+        if (currentUser != null) {
             updateUserStatus("offline");
         }
     }
@@ -137,21 +168,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        FirebaseUser currentUser=mAuth.getCurrentUser();
-        if(currentUser!= null){
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
             updateUserStatus("offline");
         }
     }
 
     private void VerifyUserExistance() {
-        String currentUserID=mAuth.getCurrentUser().getUid();
+        String currentUserID = mAuth.getCurrentUser().getUid();
         RootRef.child("Users").child(currentUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.child("name").exists()){
-                   // Toast.makeText(MainActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
-                }
-                else{
+                if (dataSnapshot.child("name").exists()) {
+                    // Toast.makeText(MainActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
+                } else {
                     SendUserToSettingsActivity();
                 }
 
@@ -176,20 +206,19 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         super.onOptionsItemSelected(item);
 
-        if(item.getItemId()==R.id.main_settings_option){
+        if (item.getItemId() == R.id.main_settings_option) {
             SendUserToSettingsActivity();
-        } else if(item.getItemId()==R.id.main_password_option){
+        } else if (item.getItemId() == R.id.main_password_option) {
             SendUserToPasswordSettingActivity();
-        } else if(item.getItemId()==R.id.main_customization_option){
+        } else if (item.getItemId() == R.id.main_customization_option) {
             SendUserToCustomizationActivity();
-        }else if(item.getItemId()==R.id.search_icon_id){
+        } else if (item.getItemId() == R.id.search_icon_id) {
             SendUserToSearch();
-        }
-        else if(item.getItemId()==R.id.main_create_group_option){
+        } else if (item.getItemId() == R.id.main_create_group_option) {
             shareLocation();
-        } else if(item.getItemId()==R.id.main_find_friend_option){
+        } else if (item.getItemId() == R.id.main_find_friend_option) {
             SendUserToFindFriendsActivity();
-        } else if(item.getItemId()==R.id.main_logout_option){
+        } else if (item.getItemId() == R.id.main_logout_option) {
             updateUserStatus("offline");
             mAuth.signOut();
             SendUserToLoginActivity();
@@ -305,57 +334,55 @@ public class MainActivity extends AppCompatActivity {
 //    }
 
     private void SendUserToLoginActivity() {
-        Intent loginIntent =new Intent(MainActivity.this,LoginActivity.class);
+        Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
         loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loginIntent);
 
     }
 
     private void SendUserToSettingsActivity() {
-        Intent settingIntent =new Intent(MainActivity.this,SettingsActivity.class);
+        Intent settingIntent = new Intent(MainActivity.this, SettingsActivity.class);
         startActivity(settingIntent);
     }
 
     private void SendUserToPasswordSettingActivity() {
-        Intent settingIntent =new Intent(MainActivity.this,PasswordSettingsActivity.class);
+        Intent settingIntent = new Intent(MainActivity.this, PasswordSettingsActivity.class);
         startActivity(settingIntent);
     }
 
     private void SendUserToFindFriendsActivity() {
-        Intent findFriendsIntent =new Intent(MainActivity.this,FindFriendsActivity.class);
+        Intent findFriendsIntent = new Intent(MainActivity.this, FindFriendsActivity.class);
         startActivity(findFriendsIntent);
 
     }
 
     private void SendUserToCustomizationActivity() {
-        Intent findFriendsIntent =new Intent(MainActivity.this,CustomizationActivity.class);
+        Intent findFriendsIntent = new Intent(MainActivity.this, CustomizationActivity.class);
         startActivity(findFriendsIntent);
     }
 
-    private void SendUserToSearch()
-    {
-        Intent SearchIntent = new Intent (MainActivity.this, SearchActivity.class);
+    private void SendUserToSearch() {
+        Intent SearchIntent = new Intent(MainActivity.this, SearchActivity.class);
         startActivity(SearchIntent);
     }
 
-    private void updateUserStatus(String state)
-    {
-        String saveCurrentTime , saveCurrentDate;
+    private void updateUserStatus(String state) {
+        String saveCurrentTime, saveCurrentDate;
 
-        Calendar calendar=Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
 
         SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
-        saveCurrentTime=currentTime.format(calendar.getTime());
+        saveCurrentTime = currentTime.format(calendar.getTime());
 
         SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
-        saveCurrentDate=currentDate.format(calendar.getTime());
+        saveCurrentDate = currentDate.format(calendar.getTime());
 
-        HashMap<String, Object>onlineStatusMap =new HashMap<>();
+        HashMap<String, Object> onlineStatusMap = new HashMap<>();
         onlineStatusMap.put("time", saveCurrentTime);
-        onlineStatusMap.put("date",saveCurrentDate);
+        onlineStatusMap.put("date", saveCurrentDate);
         onlineStatusMap.put("state", state);
 
-        currentUserID=mAuth.getCurrentUser().getUid();
+        currentUserID = mAuth.getCurrentUser().getUid();
 
         RootRef.child("Users").child(currentUserID).child("userState")
                 .updateChildren(onlineStatusMap);

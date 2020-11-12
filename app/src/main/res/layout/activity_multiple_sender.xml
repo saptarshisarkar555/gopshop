@@ -16,29 +16,28 @@
         android:layout_centerHorizontal="true"
         >
 
-        <EditText
-            android:id="@+id/search_name"
+        <EditTextd
+            android:id="@+id/multipleSenderid"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginStart="5dp"
             android:background="#FFFFFF"
-            android:hint="Contact Name"
+            android:hint="Send message..."
             android:padding="9dp"
             android:textColor="@color/textColor"
             android:textSize="18dp"
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/search_btn"
-            android:layout_width="wrap_content"
+            android:id="@+id/sendmultiple"
+            android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="-88dp"
-            android:layout_toRightOf="@+id/search_name"
-            android:background="@color/colorPrimary"
+            android:layout_toRightOf="@+id/multipleSenderid"
+            android:background="@drawable/send_icon"
             android:padding="9dp"
             android:textAllCaps="false"
-            android:text="Search"
             android:textColor="@android:color/white"
             android:textSize="16dp"
             android:textStyle="bold" />

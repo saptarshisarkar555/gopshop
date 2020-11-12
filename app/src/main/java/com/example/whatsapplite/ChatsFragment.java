@@ -41,6 +41,8 @@ public class ChatsFragment extends Fragment {
     private View PrivateChatView;
     private RecyclerView chatsList;
     private String currentUserID;
+    private LinearLayoutManager mLayoutManager;
+
 
     private DatabaseReference ChatsRef,usersRef;
     private FirebaseAuth mAuth;
@@ -68,11 +70,20 @@ public class ChatsFragment extends Fragment {
         }
 
 
+        chatsList=PrivateChatView.findViewById(R.id.chats_list);
+        mLayoutManager = new LinearLayoutManager(getContext());
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+
          ChatsRef= FirebaseDatabase.getInstance().getReference().child("Contacts").child(currentUserID);
          usersRef=FirebaseDatabase.getInstance().getReference().child("Users");
 
-         chatsList=PrivateChatView.findViewById(R.id.chats_list);
-         chatsList.setLayoutManager(new LinearLayoutManager(getContext()));
+
+         chatsList.setLayoutManager(mLayoutManager);
+
+
+
+
 
          return PrivateChatView;
     }
@@ -86,6 +97,8 @@ public class ChatsFragment extends Fragment {
                 new FirebaseRecyclerOptions.Builder<Contacts>()
                 .setQuery(ChatsRef,Contacts.class)
                 .build();
+
+//        Log.d("message", "onStart: "+ options);
 
         FirebaseRecyclerAdapter<Contacts, ChatsViewHolder>adapter=
                 new FirebaseRecyclerAdapter<Contacts, ChatsViewHolder>(options) {

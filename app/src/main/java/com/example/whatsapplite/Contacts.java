@@ -4,6 +4,7 @@ package com.example.whatsapplite;
 public class Contacts {
     public int id;
     public String name,status,image;
+    private boolean isSelect;
 
     public Contacts(){
 
@@ -39,6 +40,13 @@ public class Contacts {
 
     public void setImage(String image) {
         this.image = image;
+    }
+    public boolean isSelect() {
+        return isSelect;
+    }
+
+    public void setSelect(boolean select) {
+        isSelect = select;
     }
 }
 

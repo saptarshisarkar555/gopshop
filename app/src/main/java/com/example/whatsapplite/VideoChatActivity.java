@@ -30,6 +30,8 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 public class VideoChatActivity extends AppCompatActivity implements Session.SessionListener, PublisherKit.PublisherListener {
 
+    private static final String TAG = "VideoChatActivity";
+
     private static String API_Key = "46960004";
     private static String SESSION_ID = "2_MX40Njk2MDAwNH5-MTYwMzE3MzgwMjI5Nn5uSzlBdFUrTDJldndpSzFibnV4NDdxUkV-fg";
     private static String TOKEN = "T1==cGFydG5lcl9pZD00Njk2MDAwNCZzaWc9NTBjYjA5YTVmMmQ5MDkzYzJlZmQ5ZjdmMzY4MDJlN2M4NWI4ZDBlMTpzZXNzaW9uX2lkPTJfTVg0ME5qazJNREF3Tkg1LU1UWXdNekUzTXpnd01qSTVObjV1U3psQmRGVXJUREpsZG5kcFN6RmliblY0TkRkeFVrVi1mZyZjcmVhdGVfdGltZT0xNjAzMjA5NDAyJm5vbmNlPTAuMjY3NTk5NjM5MTIyNDEwNyZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNjA1ODA0OTk5JmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9";
@@ -56,10 +58,14 @@ public class VideoChatActivity extends AppCompatActivity implements Session.Sess
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+        Log.d(TAG, "onCreate: " +usersRef +"  "+userId);
+
         closeVideoChatBtn = findViewById(R.id.close_video_chat_btn_Id);
         closeVideoChatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
